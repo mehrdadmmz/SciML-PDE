@@ -1,0 +1,56 @@
+defaults:
+  - _self_
+
+  - mode: default.yaml
+
+
+
+sim_name: "ns_incom_inhom_2d_256"
+label: null
+
+# Solver Parameters
+# domain_size: [1, 1]
+grid_size: [256, 256]
+
+#['scalar_grid', extrapolation_x:(type or bound), extrapolation_y:(type or bound)]
+particle_extrapolation: "BOUNDARY"
+
+#['staggered_grid', extrapolation_x:(type or bound), extrapolation_y:(type or bound)]
+velocity_extrapolation: "ZERO"
+
+# Fluid characteristics
+NU: 0.05 #(kinematic viscosity)
+
+# External force
+# enable_gravity: false
+force_extrapolation: "ZERO"
+
+# Fluctuation Generator Parameters (Noise)
+seed: 0
+## TODO #########################
+# smoothness: 1.0
+# scale: 0.4
+## TODO #########################
+smoothness: 3.0
+scale: 0.15
+#################################
+force_smoothness: 1.0
+force_scale: 0.4
+
+#params for IncompressibleFlow(Physics)
+n_steps: 100000
+DT: 0.00005
+frame_int: 100
+
+n_batch: 4
+
+# Visualisation
+save_images: false
+save_gif: false
+save_h5: true
+profile: false # Run performance profiling
+upload: false # upload to DARUS - requires key
+
+backend: "pytorch"
+device: "GPU"
+jit: true
