@@ -1,0 +1,91 @@
+defaults:
+  - _self_
+  - override hydra/hydra_logging: disabled
+  - override hydra/job_logging: disabled
+
+hydra:
+  output_subdir: null
+  run:
+    dir: .
+
+dataset: null
+
+args: &args
+  model_name: "TransformerAux_RD"
+  if_training: true
+  continue_training: false
+  num_workers: 12
+  batch_size: 4
+  seed: 0
+  if_downsample: false
+
+  initial_step: 10
+  rollout_steps: 1
+  t_train: 101
+  training_type: "single"
+
+  learning_rate: 3e-4
+  weight_decay: 1.e-4
+  epochs: 60
+  scheduler: cosine
+  scheduler_step: 100
+  scheduler_gamma: 0.5
+  warmup_steps_pct: 0.05
+
+  base_path: "/local-scratch/pdebench/simulated/RD/"
+  train_subsample: [8, 4, 12]
+  num_aux_samples: 3
+  auxiliary_weight: 0.5
+
+  img_size: 128
+  patch_size: 16
+  tubelet_size: 1
+
+  in_chans: 2
+  encoder_embed_dim: 1024
+  encoder_depth: 16
+  encoder_num_heads: 16
+
+  decoder_embed_dim: 512
+  decoder_num_heads: 8
+  decoder_depth: 8
+  decoder_num_classes: 1024
+  drop_path_rate: 0.10
+  ssl: false
+
+  plot: false
+  channel_plot: 0
+  x_min: -1
+  x_max: 1
+  y_min: -1
+  y_max: 1
+  t_min: 0
+  t_max: 5
+
+basic_ds2:
+  <<: *args
+  train_subsample: [2, 1, 3]
+
+basic_ds4:
+  <<: *args
+  train_subsample: [4, 2, 6]
+
+basic_ds8:
+  <<: *args
+  train_subsample: [8, 4, 12]
+
+basic_ds16:
+  <<: *args
+  train_subsample: [16, 8, 24]
+
+basic_ds32:
+  <<: *args
+  train_subsample: [32, 16, 48]
+
+basic_ds64:
+  <<: *args
+  train_subsample: [64, 32, 96]
+
+basic_ds128:
+  <<: *args
+  train_subsample: [128, 64, 192]
