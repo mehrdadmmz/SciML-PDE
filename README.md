@@ -48,7 +48,8 @@ pip install ".[datagen39]" # locally
 ### Using conda
 
 If you like you can also install dependencies using anaconda, we suggest to use
-[mambaforge](XXXX) as a distribution.
+[mambaforge](https://github.com/conda-forge/miniforge#mambaforge) as a
+distribution.
 
 Otherwise you may have to **enable the conda-forge** channel for the following commands.
 
@@ -69,11 +70,15 @@ Install PyTorch (CUDA or CPU):
 
 - CUDA 11.7 (Linux):
 
+[see previous-versions/#linux - CUDA 11.7](https://pytorch.org/get-started/previous-versions/#linux-and-windows-2).
+
 ```bash
 conda install pytorch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1 pytorch-cuda=11.7 -c pytorch -c nvidia
 ```
 
 - CPU only:
+
+[or CPU only binaries](https://pytorch.org/get-started/previous-versions/#linux-and-windows-2).
 
 ```bash
 conda install pytorch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1 cpuonly -c pytorch
