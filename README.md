@@ -231,18 +231,28 @@ python Plot\ Generator/3D_NS_Vis.py
 
 We follow the same hyperparameters as reported in the paper (Appendix B).
 
+## 👥 Authors
+
+- Siying Ma — Simon Fraser University
+- Mehrdad Momeni Zadeh — Simon Fraser University
+- Mauricio Soroco — Simon Fraser University
+- Wuyang Chen — Simon Fraser University
+- Jiguo Cao — Simon Fraser University
+- Vijay Ganesh — Georgia Institute of Technology
+
+---
+
 ## 📝 Citation
 
 If you use this repository, please cite:
 
-```bash
-@inproceedings{neurips2025_fundamental_physics,
+```bibtex
+@inproceedings{ma2025fundamentalphysics,
   title     = {Learning Data-Efficient and Generalizable Neural Operators via Fundamental Physics Knowledge},
-  author    = {Anonymous},
+  author    = {Siying Ma and Mehrdad Momeni Zadeh and Mauricio Soroco and Wuyang Chen and Jiguo Cao and Vijay Ganesh},
   booktitle = {Proceedings of the 39th Conference on Neural Information Processing Systems (NeurIPS)},
   year      = {2025}
 }
-
 ```
 
 ## ⚠️ Limitations
