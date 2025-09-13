@@ -1,0 +1,90 @@
+# config_transformer_aux_ns.yaml
+
+defaults:
+  - _self_
+  - override hydra/hydra_logging: disabled
+  - override hydra/job_logging: disabled
+
+hydra:
+  output_subdir: null
+  run:
+    dir: .
+
+args: &args
+  model_name: "TransformerAux"
+  if_training: True
+  continue_training: False
+  seed: 1
+
+  num_workers: 12
+  batch_size: 2
+  grad_accum: 4 # effective batch = batch_size × grad_accum
+  use_amp: true # mixed precision
+
+  initial_step: 10
+  training_type: "single"
+
+  learning_rate_share: 1.e-3
+  learning_rate_heads: 1.e-3
+  auxiliary_weight: 0.7
+  epochs: 30
+  scheduler: cosine
+  scheduler_step: 100
+  scheduler_gamma: 0.5
+
+  # base_path: "/local-scratch/pdebench/simulated/ns_256" # primary data
+  # aux_path: "/local-scratch/pdebench/simulated/2d_ns_downsample" # downsampled aux data
+  base_path: "/local-scratch2/ns_256" # primary data
+  aux_path: "/local-scratch2/2d_ns_downsample" # downsampled aux data
+  num_aux_samples: 6 # default fan-out
+  train_subsample: [0.5, 0.25, 24] # default tiny preset
+  if_downsample: true
+
+  img_size: 256
+  patch_size: 16
+  tubelet_size: 2
+  in_chans: 3
+  encoder_embed_dim: 768
+  encoder_num_heads: 12
+  decoder_embed_dim: 512
+  decoder_num_heads: 8
+  decoder_depth: 8
+  drop_path_rate: 0.1
+  ssl: false
+
+  plot: False
+  channel_plot: 0
+  x_min: -1
+  x_max: 1
+  y_min: -1
+  y_max: 1
+  t_min: 0
+  t_max: 5
+
+basic_ds2:
+  <<: *args
+  train_subsample: [0.5, 0.25, 6]
+
+basic_ds4:
+  <<: *args
+  train_subsample: [1, 0.5, 6]
+
+basic_ds8:
+  <<: *args
+  train_subsample: [2, 1, 6]
+
+basic_ds16:
+  <<: *args
+  train_subsample: [4, 2, 12]
+
+basic_ds32:
+  <<: *args
+  train_subsample: [8, 4, 24]
+
+basic_ds48:
+  <<: *args
+  train_subsample: [12, 6, 36]
+
+basic_ds64:
+  <<: *args
+  train_subsample: [16, 8, 48]

@@ -1,0 +1,147 @@
+defaults:
+  - _self_
+  - override hydra/hydra_logging: disabled
+  - override hydra/job_logging: disabled
+
+hydra:
+  output_subdir: null
+  run:
+    dir: .
+
+dataset: null 
+
+args: &args
+  model_name: "FNO"
+  if_training: False
+  continue_training: False
+  rollout_test: 1
+  num_workers: 16
+  epochs: 20
+  batch_size: 8 #8for baseline 4 for ours
+  # accumulation_steps: 1
+  if_downsample: False
+
+  initial_step: 10
+  t_train: 150
+  model_update: 1
+
+  model_flmn: "3D_ns_lr1_ar07_bs2"
+  FNO_model_flmn: "3D_ns_test_all_bs4"
+  
+  learning_rate: 1.e-3
+  learning_rate_share: 1.e-3
+  learning_rate_fc2: 1.e-3
+  training_type: "single"
+  
+  #Scheduler
+  scheduler: "cosine"
+  scheduler_step: 100 #for LR scheduler only
+  scheduler_gamma: 0.5 #for LR scheduler only
+
+  #Loss Parameters
+  num_aux_samples: 3
+  auxiliary_weight: 0.7
+  
+  
+  #FNO
+  num_channels: 4
+  modes: 12
+  width: 20
+
+  #File path
+  base_path: /local-scratch1/3D_NS_interp
+  # base_path: ../data_gen/3D_scalarflow_interp
+  #aux_path: ../data_gen/3D_NS_decomp_downsample 
+  # aux_path: ../data_gen/3D_NS_downsample
+  aux_path: ../data_gen/data/3D_NS_comp_interp
+
+  #Distributed
+  backend: nccl
+  init_method: env://      # torchrun wil#l set the right env vars
+  local_rank: 0 # local_rank will be injected by torchrun as an env var
+  
+  #Plotting
+  plot: False
+  channel_plot: 0 # Which channel/variable to be plotted
+  x_min: -1
+  x_max: 1
+  y_min: -1
+  y_max: 1
+  t_min: 0
+  t_max: 5
+
+
+# Define dataset configurations for our model and resolution downsampling only experiments
+basic_ds2: 
+  <<: *args
+  train_subsample: [2, 1, 3]
+
+basic_ds4: 
+  <<: *args
+  train_subsample: [4, 2, 6]
+
+basic_ds8: 
+  <<: *args
+  train_subsample: [8, 4, 12]
+
+basic_ds16: 
+  <<: *args
+  train_subsample: [16, 8, 24]
+
+basic_ds32: 
+  <<: *args
+  train_subsample: [32, 16, 48]
+
+basic_ds48: 
+  <<: *args
+  train_subsample: [48, 24, 72]
+
+basic_ds64: 
+  <<: *args
+  train_subsample: [64, 32, 96]
+
+# basic_ds128: 
+#   <<: *args
+#   train_subsample: [128, 64, 192]
+
+# basic_ds256: 
+#   <<: *args
+#   train_subsample: [256, 128, 384]
+
+# basic_ds512:
+#   <<: *args
+#   train_subsample: [512, 256, 768]
+
+# basic_ds900:
+#   <<: *args
+#   train_subsample: [900, 900, 900]
+
+
+#Dataset configurations for decomposed downsampling experiment
+# basic_ds2: 
+#   <<: *args
+#   train_subsample: [2, 1, 7]
+
+# basic_ds4: 
+#   <<: *args
+#   train_subsample: [4, 2, 14]
+
+# basic_ds8: 
+#   <<: *args
+#   train_subsample: [8, 4, 28]
+
+# basic_ds16: 
+#   <<: *args
+#   train_subsample: [16, 8, 56]
+
+# basic_ds32: 
+#   <<: *args
+#   train_subsample: [32, 16, 112]
+
+# basic_ds48: 
+#   <<: *args
+#   train_subsample: [48, 24, 168]
+
+# basic_ds64: 
+#   <<: *args
+#   train_subsample: [64, 32, 224]

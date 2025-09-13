@@ -1,0 +1,105 @@
+defaults:
+  - _self_
+  - override hydra/hydra_logging: disabled
+  - override hydra/job_logging: disabled
+
+hydra:
+  output_subdir: null
+  run:
+    dir: .
+
+dataset: null 
+
+args: &args
+  model_name: "FNO"
+  if_training: False
+  continue_training: False
+  rollout_test: 5
+  num_workers: 16
+  batch_size: 8 #8 for Aux, 16 for baseline
+  initial_step: 10
+  t_train: 1000
+  model_update: 1
+  model_flmn: "2D_ns_lr1_ar07_bs2"
+  FNO_model_flmn: "2D_ns_test_all_bs4"
+  training_type: "single"
+
+  epochs: 20
+  learning_rate: 1.e-3
+  learning_rate_share: 1.e-3
+  learning_rate_fc2: 1.e-3
+  num_aux_samples: 24
+  auxiliary_weight: 0.7
+  accumulation_steps: 1
+
+  scheduler: 'cosine'
+  scheduler_step: 100
+  scheduler_gamma: 0.5
+
+  #FNO
+  num_channels: 3
+  modes: 12
+  width: 20
+
+  #Data loading
+  if_downsample: False
+  base_path: /local-scratch1/ns_256 #Primary data
+  aux_path: ../data_gen/data/basic_eq #Auxiliary data
+  #ood setting
+  #base_path: /local-scratch1/ns_v0001
+  
+  
+  #Plotting
+  plot: False
+  channel_plot: 0 # Which channel/variable to be plotted
+  x_min: -1
+  x_max: 1
+  y_min: -1
+  y_max: 1
+  t_min: 0
+  t_max: 5
+
+# Define dataset configurations with different subsampling
+basic_ds2:
+  <<: *args
+  train_subsample: [0.5, 0.25, 24] # note that for the situation that num of primary data is less than one, only partial auxiliary data will be used
+
+basic_ds4: 
+  <<: *args
+  train_subsample: [1, 0.5, 24]
+
+basic_ds8: 
+  <<: *args
+  train_subsample: [2, 1, 24]
+
+basic_ds16: 
+  <<: *args
+  train_subsample: [4, 2, 48]
+
+basic_ds32: 
+  <<: *args
+  train_subsample: [8, 4, 96]
+
+basic_ds48: 
+  <<: *args
+  train_subsample: [12, 6, 144]
+
+basic_ds64: 
+  <<: *args
+  train_subsample: [16, 8, 192]
+
+# basic_ds96: 
+#   <<: *args
+#   train_subsample: [24, 12, 288]
+
+# basic_ds256: 
+#   <<: *args
+#   train_subsample: [64, 128, 384]
+
+# basic_ds512:
+#   <<: *args
+#   train_subsample: [128, 256, 768]
+
+# basic_ds1000:
+#   <<: *args
+#   train_subsample: [250, 900, 900]
