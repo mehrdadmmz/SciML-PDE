@@ -127,6 +127,7 @@ conda install clawpack jax jaxlib python-dotenv
 ## 🏗️ Model Structure
 
 - FNO and Transformer
+
   <img width="587" height="378" alt="image" src="https://github.com/user-attachments/assets/dcc6b16b-e964-4e41-ab17-7c01ccfb0fb6" />
 
 ## 📂 Repository Structure
