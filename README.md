@@ -1,4 +1,4 @@
-# Learning Data-Efficient and Generalizable Neural Operators via Fundamental Physics Knowledge
+# Learning Data-Efficient and Generalizable Neural Operators via Fundamental Physics Knowledge - NeurIPS 2025
 
 ![Python](https://img.shields.io/badge/Python-3.9+-3776AB?logo=python&logoColor=white)
 ![PyTorch](https://img.shields.io/badge/PyTorch-1.13+-EE4C2C?logo=pytorch&logoColor=white)
