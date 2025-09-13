@@ -1,5 +1,13 @@
 # Learning Data-Efficient and Generalizable Neural Operators via Fundamental Physics Knowledge
 
+![Python](https://img.shields.io/badge/Python-3.9+-3776AB?logo=python&logoColor=white)
+![PyTorch](https://img.shields.io/badge/PyTorch-1.13+-EE4C2C?logo=pytorch&logoColor=white)
+![Conda](https://img.shields.io/badge/Conda-Forge-44A833?logo=anaconda&logoColor=white)
+![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
+![Paper](https://img.shields.io/badge/NeurIPS-2025-blueviolet?logo=arxiv&logoColor=white)
+![Dataset](https://img.shields.io/badge/Dataset-PDEBench%20%7C%20ScalarFlow-orange)
+![Build](https://img.shields.io/badge/PyPI-pdebench-3775A9?logo=pypi&logoColor=white)
+
 This repository contains the official implementation of our **NeurIPS 2025** paper:
 
 > **Learning Data-Efficient and Generalizable Neural Operators via Fundamental Physics Knowledge**  
@@ -12,7 +20,33 @@ Our method enhances neural operator training by explicitly incorporating **funda
 - **Stronger out-of-distribution (OOD) generalization**
 - **Better synthetic-to-real transfer** (e.g., ScalarFlow smoke plumes)
 
----
+## 📖 Overview
+
+### Motivation
+
+Neural operators are powerful surrogates for PDE simulations but often fail under distribution shifts due to a lack of fundamental physics priors. Numerical solvers preserve conservation and symmetries, but data-driven models typically do not.
+
+### Our Contribution
+
+We propose multiphysics joint training that combines:
+
+- The original PDE simulations (e.g., Diffusion–Reaction, Navier–Stokes)
+- Their decomposed basic forms (e.g., pure diffusion, pure convection)
+
+This simple but principled approach:
+
+- Encodes physics priors without extra cost
+- Enables >11.5% improvement in nRMSE
+- Generalizes to OOD and real-world (ScalarFlow) scenarios
+
+## 👥 Authors
+
+- Siying Ma — Simon Fraser University
+- Mehrdad Momeni Zadeh — Simon Fraser University
+- Mauricio Soroco — Simon Fraser University
+- Wuyang Chen — Simon Fraser University
+- Jiguo Cao — Simon Fraser University
+- Vijay Ganesh — Georgia Institute of Technology
 
 ## 📦 Installation
 
@@ -90,24 +124,10 @@ Optional dependencies for data generation:
 conda install clawpack jax jaxlib python-dotenv
 ```
 
-## 📖 Overview
+## 🏗️ Model Structure
 
-### Motivation
-
-Neural operators are powerful surrogates for PDE simulations but often fail under distribution shifts due to a lack of fundamental physics priors. Numerical solvers preserve conservation and symmetries, but data-driven models typically do not.
-
-### Our Contribution
-
-We propose multiphysics joint training that combines:
-
-- The original PDE simulations (e.g., Diffusion–Reaction, Navier–Stokes)
-- Their decomposed basic forms (e.g., pure diffusion, pure convection)
-
-This simple but principled approach:
-
-- Encodes physics priors without extra cost
-- Enables >11.5% improvement in nRMSE
-- Generalizes to OOD and real-world (ScalarFlow) scenarios
+- FNO and Transformer
+  <img width="587" height="378" alt="image" src="https://github.com/user-attachments/assets/dcc6b16b-e964-4e41-ab17-7c01ccfb0fb6" />
 
 ## 📂 Repository Structure
 
@@ -148,6 +168,14 @@ This simple but principled approach:
 
 
 ```
+
+## 🖼️ Visualizations
+
+Visualizations of simulations of PDEs and their decomposed basic forms.
+
+From left to right: activator concentration, velocity, and density.
+
+<img width="790" height="659" alt="image" src="https://github.com/user-attachments/assets/ae45aeac-9748-4a42-b481-d3d20fde05dc" />
 
 ## 🚀 Usage
 
@@ -221,6 +249,28 @@ python Plot\ Generator/3D_NS_Vis.py
 
 ```
 
+## 📊 Experiments
+
+Joint training neural operators on data of the original PDE and the basic form improves performance and data efficiency.
+
+<img width="632" height="413" alt="image" src="https://github.com/user-attachments/assets/c2690315-5737-471a-ada2-c2670b2e8fad" />
+
+## 🌍 Out-of-Distribution Generalization
+
+Joint training neural operators on data of the original PDE and the basic form improves performance and data efficiency.
+
+<img width="630" height="191" alt="image" src="https://github.com/user-attachments/assets/cb9fc642-89e0-45f7-911b-b52fa5163057" />
+
+Joint training neural operators on data of the original PDE and the basic form improves performance with autoregressive inference at different unrolled steps.
+
+<img width="624" height="202" alt="image" src="https://github.com/user-attachments/assets/d2b37113-ec8f-4211-881c-0b5418f132ec" />
+
+## 🔄 Synthetic-to-Real Generalization
+
+Visualizations of the last time step in the ScalarFlow and its predictions derived by baseline and our model.
+
+<img width="624" height="310" alt="image" src="https://github.com/user-attachments/assets/852883c4-ccf1-4a05-92e1-1673a2f0dd6b" />
+
 ## 📊 Reproducing Paper Results
 
 - Data Efficiency → train_models_forward.py + subsampling configs
@@ -230,17 +280,6 @@ python Plot\ Generator/3D_NS_Vis.py
 - Figures → generated via Plot Generator/
 
 We follow the same hyperparameters as reported in the paper (Appendix B).
-
-## 👥 Authors
-
-- Siying Ma — Simon Fraser University
-- Mehrdad Momeni Zadeh — Simon Fraser University
-- Mauricio Soroco — Simon Fraser University
-- Wuyang Chen — Simon Fraser University
-- Jiguo Cao — Simon Fraser University
-- Vijay Ganesh — Georgia Institute of Technology
-
----
 
 ## 📝 Citation
 
